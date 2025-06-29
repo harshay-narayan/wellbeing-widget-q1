@@ -2,6 +2,8 @@
 
 A responsive, interactive UI component built with **React**, **TypeScript**, **Tailwind CSS** and **Vite** that allows users to check in on their current emotional state.
 
+The feeling set to the state will be logged to console which can further be consumed by API endpoints.
+
 ---
 
 ## 📁 File Location
