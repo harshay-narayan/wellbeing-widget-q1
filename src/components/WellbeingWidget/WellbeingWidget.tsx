@@ -9,15 +9,19 @@ function WellbeingWidget() {
   const handleSelectFeeling = (feeling: Feeling) => {
     setSelectedFeeling((prev) => (prev?.id === feeling.id ? null : feeling));
   };
+  const handleCheckin=()=>{
+    console.log(selectedFeeling);
+    setSelectedFeeling(null);
+  }
   return (
     <div className="bg-white rounded-2xl m-2 p-4 md:w-2/3">
       <div className="flex justify-between">
-        <div tabIndex={0} className="cursor-pointer">
+        <button aria-label="Go back" tabIndex={0} className="cursor-pointer">
           <ArrowLeft color="#666" />
-        </div>
-        <div tabIndex={0} color="#666" className="cursor-pointer">
+        </button>
+        <button aria-label="close" tabIndex={0} color="#666" className="cursor-pointer">
           <X />
-        </div>
+        </button>
       </div>
       <div className="flex justify-center p-2 font-extrabold text-xl">
         Wellbeing Check-in
@@ -59,9 +63,11 @@ function WellbeingWidget() {
         <button
           tabIndex={0}
           className={cn(
-            "p-2 w-2/3 md:w-1/3 bg-gray-400 text-white rounded cursor-pointer font-bold",
-            selectedFeeling && "bg-[#1C8CF2]"
+            "p-2 w-2/3 md:w-1/3 bg-gray-400 text-white rounded cursor-pointer font-bold disabled:cursor-not-allowed",
+            selectedFeeling && "bg-[#1C8CF2] active:bg-blue-600"
           )}
+          onClick={handleCheckin}
+          disabled={!selectedFeeling}
         >
           Continue
         </button>
