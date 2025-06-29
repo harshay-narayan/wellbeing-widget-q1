@@ -1,70 +1,176 @@
-# wellbeing-widget-q1
-# React + TypeScript + Vite
+# WellbeingWidget Component
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive, interactive UI component built with **React**, **TypeScript**, **Tailwind CSS** and **Vite** that allows users to check in on their current emotional state.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📁 File Location
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+src/components/WellbeingWidget.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Overview
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The `WellbeingWidget` presents a list of predefined feelings, allowing the user to select one. Upon selection, the button is visually highlighted, and the "Continue" button updates to indicate readiness.
+
+---
+
+## 🧩 Features
+
+* Responsive and mobile-friendly
+* Visually indicates selected feeling
+* Selection is toggleable (select again to deselect)
+* Tailwind-based styling with `clsx` and `tailwind-merge`
+* Accessibility-friendly with keyboard focus support
+
+---
+
+## 📦 Dependencies
+
+* [`lucide-react`](https://lucide.dev) – Icons
+* [`clsx`](https://github.com/lukeed/clsx) + `tailwind-merge` – Class merging via custom `cn()` function
+* Tailwind CSS
+* React (`useState`)
+* Vitest
+* React Testing Library
+
+---
+
+## 📄 Props
+
+**None.**
+
+All state and data are internally managed.
+
+---
+
+## 🧠 State
+
+| State Variable    | Type      | Description |                            |
+| ----------------- | --------- | ----------- | -------------------------- |
+| `selectedFeeling` | \`Feeling | null\`      | Currently selected feeling |
+
+---
+
+## 🧱 Type Definitions
+
+```ts
+export type Feeling = {
+  id: number;
+  name: string;
+  iconUrl: string;
+};
 ```
+
+---
+
+## 🗂️ Data Source
+
+Located in `src/lib/data.ts`:
+
+```ts
+export const feelings: Feeling[] = [
+  { id: 1, name: "Terrible", iconUrl: "..." },
+  { id: 2, name: "Bad", iconUrl: "..." },
+  // etc.
+];
+```
+
+---
+
+## ⚙️ Core Logic
+
+### `handleSelectFeeling(feeling: Feeling)`
+
+Toggles selection:
+
+```ts
+setSelectedFeeling((prev) => (prev?.id === feeling.id ? null : feeling));
+```
+
+---
+
+## 🎨 Styling
+
+Tailwind CSS has been used to ensure responsive design and provide utility-first styling for consistent layout and appearance.
+
+---
+
+## 🧪 Testing
+
+Tests written using **Vitest** + **React Testing Library**:
+
+```tsx
+it("selects a feeling on click", () => {
+  render(<WellbeingWidget />);
+  const button = screen.getByText("Alright");
+  fireEvent.click(button);
+  expect(button).toHaveClass("bg-[#e2f1ffb3]");
+});
+```
+
+---
+
+## ♿ Accessibility
+
+* Interactive elements (`button`, `div`) include `tabIndex={0}` for keyboard focus
+* `alt` text added for icons
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! To contribute to this project, follow these steps:
+
+1. **Fork the repository**
+   Click the "Fork" button on GitHub and clone your fork locally.
+
+2. **Install dependencies**
+   Make sure you have [Node.js](https://nodejs.org/) installed. Then:
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+4. **Create a new feature branch**
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+5. **Make your changes**
+
+   * Add or modify the component or tests
+   * Ensure code follows existing formatting and style conventions
+   * Run linter and tests before committing
+
+   ```bash
+   npm run lint
+   npm run test
+   ```
+
+6. **Commit your changes**
+
+   ```bash
+   git commit -m "feat: add [your feature or fix description]"
+   ```
+
+7. **Push to your fork**
+
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+8. **Open a Pull Request**
+   Open a PR to the `main` branch of the original repo and describe your changes clearly.
+
+---

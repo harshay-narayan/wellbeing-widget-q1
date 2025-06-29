@@ -1,7 +1,11 @@
+import { WellbeingWidget } from "./components";
+
 function App() {
   return (
-    <div>App</div>
-  )
+    <div className="md:flex justify-center">
+      <WellbeingWidget />
+    </div>
+  );
 }
 
-export default App
+export default App;
