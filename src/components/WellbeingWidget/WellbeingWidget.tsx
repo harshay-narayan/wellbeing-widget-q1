@@ -3,23 +3,27 @@ import { feelings, type Feeling } from "../../lib/data";
 import { useState } from "react";
 import { cn } from "../../lib/utils";
 
-
 function WellbeingWidget() {
   const [selectedFeeling, setSelectedFeeling] = useState<Feeling | null>(null);
   const handleSelectFeeling = (feeling: Feeling) => {
     setSelectedFeeling((prev) => (prev?.id === feeling.id ? null : feeling));
   };
-  const handleCheckin=()=>{
+  const handleCheckin = () => {
     console.log(selectedFeeling);
     setSelectedFeeling(null);
-  }
+  };
   return (
     <div className="bg-white rounded-2xl m-2 p-4 md:w-2/3">
       <div className="flex justify-between">
         <button aria-label="Go back" tabIndex={0} className="cursor-pointer">
           <ArrowLeft color="#666" />
         </button>
-        <button aria-label="close" tabIndex={0} color="#666" className="cursor-pointer">
+        <button
+          aria-label="close"
+          tabIndex={0}
+          color="#666"
+          className="cursor-pointer"
+        >
           <X />
         </button>
       </div>
@@ -36,9 +40,10 @@ function WellbeingWidget() {
               key={feeling.id}
               tabIndex={0}
               className={cn(
-                "w-[6rem] sm:w-[7rem] xl:w-[9rem] max-md:text-xs hover:scale-110 transition-transform duration-200 cursor-pointer rounded-xl border-[1px] border-[#D9DEE2] py-[1rem] px-[0.2rem] flex flex-nowrap flex-col items-center gap-4",
+                "w-[6rem] sm:w-[7rem] xl:w-[9rem] max-md:text-xs hover:scale-105 md:hover:scale-110 transition-transform duration-200 cursor-pointer rounded-xl border-[1px] border-[#D9DEE2] py-[1rem] px-[0.2rem] flex flex-nowrap flex-col items-center gap-4",
                 feeling.id === selectedFeeling?.id &&
-                  "border-[#1c8cf2] bg-[#e2f1ffb3]"
+                  "border-[#1c8cf2] bg-[#e2f1ffb3]",
+                !selectedFeeling && "scale-100"
               )}
               onClick={() =>
                 handleSelectFeeling({
