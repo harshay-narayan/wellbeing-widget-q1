@@ -40,10 +40,10 @@ function WellbeingWidget() {
               key={feeling.id}
               tabIndex={0}
               className={cn(
-                "w-[6rem] sm:w-[7rem] xl:w-[9rem] max-md:text-xs hover:scale-105 md:hover:scale-110 transition-transform duration-200 cursor-pointer rounded-xl border-[1px] border-[#D9DEE2] py-[1rem] px-[0.2rem] flex flex-nowrap flex-col items-center gap-4",
-                feeling.id === selectedFeeling?.id &&
-                  "border-[#1c8cf2] bg-[#e2f1ffb3]",
-                !selectedFeeling && "scale-100"
+                "w-[6rem] sm:w-[7rem] xl:w-[9rem] max-md:text-xs md:hover:scale-110 transition-transform duration-200 cursor-pointer rounded-xl border-[1px] border-[#D9DEE2] py-[1rem] px-[0.2rem] flex flex-nowrap flex-col items-center gap-4",
+                feeling.id === selectedFeeling?.id
+                  ? "border-[#1c8cf2] bg-[#e2f1ffb3] scale-105"
+                  : "scale-100"
               )}
               onClick={() =>
                 handleSelectFeeling({
